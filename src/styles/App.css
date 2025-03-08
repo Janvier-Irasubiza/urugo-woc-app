@@ -1,0 +1,108 @@
+:root {
+  --primary-color: #D97706;
+  --primary-color-hover: #b46205;
+  --secondary-color: #5B7E3E;
+  --thrd-level-color: #F5F5F5;
+  --primary-dark-color: #333333;
+  --divider-color: #E0E0E0;
+}
+
+/* Minimize browser scroll bar width */
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--divider-color);
+  border-radius: var(--border-radius);
+}
+
+body {
+  font-family: "Atkinson Hyperlegible Next", serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.btn-primary {
+  background-color: var(--primary-color);
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.btn-primary:hover {
+  background-color: var(--primary-color-hover);
+}
+
+.btn-secondary {
+  background-color: var(--secondary-color);
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  border-radius: var(--border-radius);
+  transition: background-color 0.3s;
+}
+
+.btn-secondary:hover {
+  background-color: var(--primary-color-hover);
+} 
+
+.btn-primary-outline {
+  border: 2px solid var(--primary-color);
+  color: var(--primary-color);
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.btn-primary-outline:hover {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.text-primary {
+  color: var(--primary-color);
+}
+
+.text-secondary {
+  color: var(--secondary-color);
+}
+
+.text-primary-dark {
+  color: var(--primary-dark-color);
+}
+
+.bg-primary {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.bg-secondary {
+  background-color: var(--secondary-color);
+  color: white;
+}
+
+.bg-thrd-level {
+  background-color: var(--thrd-level-color);
+}
+
+.border-primary {
+  border: 2px solid var(--primary-color);
+}
+
+.border-secondary {
+  border: 2px solid var(--secondary-color);
+}
+
+.border-t-primary {
+  border-top: 2px solid var(--primary-color);
+}
+
+.border-t-secondary {
+  border-top: 2px solid var(--secondary-color);
+}
+
+.border-b-primary {
+  border-bottom: 2px solid var(--primary-color);
+}
