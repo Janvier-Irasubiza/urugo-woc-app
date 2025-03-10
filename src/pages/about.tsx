@@ -19,7 +19,7 @@ function About() {
         {/* About Section */}
         <section className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           <div className="p-8 rounded-2xl bg-gradient-to-r from-orange-100 to-orange-50 border-l-4 border-orange-500 shadow-md">
-            <h2 className="text-4xl font-extrabold text-orange-600 mb-4 text-center">
+            <h2 className="text-4xl font-extrabold text-gray-800 mb-4 text-center">
               About
             </h2>
             <p className="text-gray-700 leading-relaxed text-lg tracking-wide">
@@ -34,7 +34,7 @@ function About() {
 
           {/* More Info Section */}
           <div className="space-y-6">
-            <h2 className="text-4xl font-extrabold text-orange-600 text-center">
+            <h2 className="text-4xl font-extrabold text-gray-800 text-center">
               More
             </h2>
             {moreInfo.map((info, index) => (
@@ -54,7 +54,7 @@ function About() {
 
         {/* Staff Section */}
         <section className="text-center">
-          <h2 className="text-4xl font-extrabold text-orange-600 mb-10">
+          <h2 className="text-4xl font-extrabold text-gray-800 mb-10">
             Meet Our Staff
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
@@ -70,7 +70,7 @@ function About() {
                 <h3 className="text-lg font-bold text-gray-800">
                   {member.name}
                 </h3>
-                <p className="text-orange-600 mb-3">{member.position}</p>
+                <p className="text-gray-800 mb-3">{member.position}</p>
                 {/* Social Icons */}
                 <div className="flex justify-center gap-4 mt-2">
                   <SocialIcon Icon={FaWhatsapp} />
@@ -93,7 +93,7 @@ type SocialIconProps = {
 
 const SocialIcon = ({ Icon }: SocialIconProps) => (
   <div className="w-10 h-10 rounded-full bg-orange-100 hover:bg-orange-500 flex items-center justify-center cursor-pointer transition-all duration-300">
-    <Icon className="text-orange-600 hover:text-white text-lg" />
+    <Icon className="text-gray-800 hover:text-white text-lg" />
   </div>
 );
 
