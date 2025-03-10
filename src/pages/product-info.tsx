@@ -23,7 +23,7 @@ function ProductInfo() {
   const fetchProductDetails = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:8000/api/listings/${slug}/`
+        `https://backend.healthylifeinitiative.com/api/listings/${slug}/`
       );
       console.log(response.data);
       setProductDetails(response.data);

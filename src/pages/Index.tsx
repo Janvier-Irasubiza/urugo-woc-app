@@ -40,7 +40,7 @@ function Index() {
   const fetchEvents = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:8000/api/blog-posts/?type=event&page=${eventsPage}`
+        `https://backend.healthylifeinitiative.com/api/blog-posts/?type=event&page=${eventsPage}`
       );
       setEvents(response.data.results);
       setEventsTotalPages(response.data.total_pages);
@@ -52,7 +52,7 @@ function Index() {
   const fetchNewsUpdates = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:8000/api/blog-posts/?type=blog&page=${newsPage}`
+        `https://backend.healthylifeinitiative.com/api/blog-posts/?type=blog&page=${newsPage}`
       );
       setNewsUpdates(response.data.results);
       setNewsTotalPages(response.data.total_pages);
@@ -64,7 +64,7 @@ function Index() {
   const fetchPartners = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:8000/api/partners/?page=1`
+        `https://backend.healthylifeinitiative.com/api/partners/?page=1`
       );
       setPartners(response.data.results);
     } catch (error) {

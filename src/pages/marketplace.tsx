@@ -22,7 +22,7 @@ function Marketplace() {
   const fetchProducts = async (page = 1, reset = false) => {
     try {
       const response = await axios.get(
-        `http://localhost:8000/api/listings/?type=${category.toLowerCase()}&page=${page}&search=${searchQuery}`
+        `https://backend.healthylifeinitiative.com/api/listings/?type=${category.toLowerCase()}&page=${page}&search=${searchQuery}`
       );
 
       setProducts((prev) =>

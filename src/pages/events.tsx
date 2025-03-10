@@ -23,7 +23,7 @@ function Events() {
     try {
       // Fetch data from API using axios
       const response = await axios.get(
-        `http://localhost:8000/api/blog-posts/?type=event&page=${page}`
+        `https://backend.healthylifeinitiative.com/api/blog-posts/?type=event&page=${page}`
       );
       setEvents((prevEvents) => {
         const newEvents = response.data.results;

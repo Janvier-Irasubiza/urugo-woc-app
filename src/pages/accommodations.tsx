@@ -26,7 +26,7 @@ function Accommodations() {
     try {
       // Fetch data from API using axios
       const response = await axios.get(
-        `http://localhost:8000/api/listings/?type=accommodation&page=${page}`
+        `https://backend.healthylifeinitiative.com/api/listings/?type=accommodation&page=${page}`
       );
       setAccommodations((prevAccommodations) => {
         const newAccommodations = response.data.results;

@@ -25,7 +25,7 @@ function PostDetails() {
   const fetchPost = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:8000/api/blog-posts/${slug}/`
+        `https://backend.healthylifeinitiative.com/api/blog-posts/${slug}/`
       );
       console.log(response.data);
       setPost(response.data);

@@ -21,7 +21,7 @@ function DiningDetails() {
   const fetchDiningDetails = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:8000/api/dining/${slug}/`
+        `https://backend.healthylifeinitiative.com/api/dining/${slug}/`
       );
       console.log(response.data);
       setDiningDetails(response.data);

@@ -22,7 +22,7 @@ function Dining() {
     try {
       // Fetch data from API using axios
       const response = await axios.get(
-        `http://localhost:8000/api/dining/?page=${page}`
+        `https://backend.healthylifeinitiative.com/api/dining/?page=${page}`
       );
       setDining((prevDinings) => {
         const newDinings = response.data.results;
