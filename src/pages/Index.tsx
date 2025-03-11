@@ -302,7 +302,7 @@ function Index() {
             <h2 className="text-3xl md:text-4xl font-bold text-primary mb-6">
               Partners
             </h2>
-            <div className="flex items-center justify-between gap-6">
+            <div className="flex items-center justify-start gap-6">
               {partners.map((partner, index) => (
                 <Link to={partner.url} target="_blank">
                   <div
