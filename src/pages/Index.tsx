@@ -4,9 +4,10 @@ import Donation from "../partials/donation";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import poster from "../../public/images/sxpra.jpg";
+import poster from "/images/sxpra.jpg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons";
+import { API_ENDPOINTS } from "../configs/configs";
 
 interface Post {
   title: string;
@@ -40,7 +41,7 @@ function Index() {
   const fetchEvents = async () => {
     try {
       const response = await axios.get(
-        `https://backend.healthylifeinitiative.com/api/blog-posts/?type=event&page=${eventsPage}`
+        `${API_ENDPOINTS.BLOG_POSTS}/?type=event&page=${eventsPage}`
       );
       setEvents(response.data.results);
       setEventsTotalPages(response.data.total_pages);
@@ -52,7 +53,7 @@ function Index() {
   const fetchNewsUpdates = async () => {
     try {
       const response = await axios.get(
-        `https://backend.healthylifeinitiative.com/api/blog-posts/?type=blog&page=${newsPage}`
+        `${API_ENDPOINTS.BLOG_POSTS}/?type=blog&page=${newsPage}`
       );
       setNewsUpdates(response.data.results);
       setNewsTotalPages(response.data.total_pages);
@@ -64,7 +65,7 @@ function Index() {
   const fetchPartners = async () => {
     try {
       const response = await axios.get(
-        `https://backend.healthylifeinitiative.com/api/partners/?page=1`
+        `${API_ENDPOINTS.PARTNERS}/?page=1`
       );
       setPartners(response.data.results);
     } catch (error) {

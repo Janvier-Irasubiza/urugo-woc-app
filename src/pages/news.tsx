@@ -3,6 +3,7 @@ import App from "../layouts/app";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import { format, isValid } from "date-fns";
+import { API_ENDPOINTS } from "../configs/configs";
 
 interface Post {
   id: number;
@@ -24,9 +25,7 @@ function PostDetails() {
 
   const fetchPost = async () => {
     try {
-      const response = await axios.get(
-        `https://backend.healthylifeinitiative.com/api/blog-posts/${slug}/`
-      );
+      const response = await axios.get(`${API_ENDPOINTS.BLOG_POSTS}/${slug}/`);
       console.log(response.data);
       setPost(response.data);
     } catch (err) {

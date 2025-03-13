@@ -3,6 +3,7 @@ import App from "../layouts/app";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { API_ENDPOINTS } from "../configs/configs";
 
 interface Product {
   title: string;
@@ -22,9 +23,7 @@ function ProductInfo() {
 
   const fetchProductDetails = async () => {
     try {
-      const response = await axios.get(
-        `https://backend.healthylifeinitiative.com/api/listings/${slug}/`
-      );
+      const response = await axios.get(`${API_ENDPOINTS.LISTINGS}/${slug}/`);
       console.log(response.data);
       setProductDetails(response.data);
     } catch (error) {
@@ -96,7 +95,7 @@ function ProductInfo() {
                   Purchase This Product
                 </h2>
                 <p className="text-3xl font-bold text-secondary">
-                  ${productDetails.price}
+                  {productDetails.price} RWF
                 </p>
 
                 {/* Purchase Form */}

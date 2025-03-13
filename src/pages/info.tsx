@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 import App from "../layouts/app";
 import axios from "axios";
 import { useState, useEffect } from "react";
+import { API_ENDPOINTS } from "../configs/configs";
 
 interface DiningDetails {
   image: string;
@@ -20,9 +21,7 @@ function DiningDetails() {
 
   const fetchDiningDetails = async () => {
     try {
-      const response = await axios.get(
-        `https://backend.healthylifeinitiative.com/api/dining/${slug}/`
-      );
+      const response = await axios.get(`${API_ENDPOINTS.LISTINGS}/${slug}/`);
       console.log(response.data);
       setDiningDetails(response.data);
     } catch (error) {

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import App from "../layouts/app";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { API_ENDPOINTS } from "../configs/configs";
 
 interface Post {
   title: string;
@@ -23,7 +24,7 @@ function Events() {
     try {
       // Fetch data from API using axios
       const response = await axios.get(
-        `https://backend.healthylifeinitiative.com/api/blog-posts/?type=event&page=${page}`
+        `${API_ENDPOINTS.BLOG_POSTS}/?type=event&page=${page}`
       );
       setEvents((prevEvents) => {
         const newEvents = response.data.results;

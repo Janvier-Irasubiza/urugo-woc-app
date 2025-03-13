@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import App from "../layouts/app";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { API_ENDPOINTS } from "../configs/configs";
 
 interface Accommodation {
   image: string;
@@ -26,7 +27,7 @@ function Accommodations() {
     try {
       // Fetch data from API using axios
       const response = await axios.get(
-        `https://backend.healthylifeinitiative.com/api/listings/?type=accommodation&page=${page}`
+        `${API_ENDPOINTS.LISTINGS}/?type=accommodation&page=${page}`
       );
       setAccommodations((prevAccommodations) => {
         const newAccommodations = response.data.results;

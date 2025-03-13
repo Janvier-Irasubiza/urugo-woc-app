@@ -3,6 +3,7 @@ import App from "../layouts/app";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { ShoppingBagIcon } from "@heroicons/react/16/solid";
+import { API_ENDPOINTS } from "../configs/configs";
 
 interface Marketplace {
   image: string;
@@ -10,6 +11,7 @@ interface Marketplace {
   price: number;
   category: string;
   slug: string;
+  short_desc: string;
 }
 
 function Marketplace() {
@@ -22,7 +24,9 @@ function Marketplace() {
   const fetchProducts = async (page = 1, reset = false) => {
     try {
       const response = await axios.get(
-        `https://backend.healthylifeinitiative.com/api/listings/?type=${category.toLowerCase()}&page=${page}&search=${searchQuery}`
+        `${
+          API_ENDPOINTS.LISTINGS
+        }/?type=${category.toLowerCase()}&page=${page}&search=${searchQuery}`
       );
 
       setProducts((prev) =>
@@ -112,9 +116,12 @@ function Marketplace() {
                     <h3 className="font-semibold text-primary-dark">
                       {product.title}
                     </h3>
-                    <p className="font-medium mb-2 text-gray-700">
-                      ${product.price}
+                    <p className="font-medium mb-2 text-gray-800">
+                      {product.price} RWF
                     </p>
+
+                    <p className="mb-2 text-gray-700">{product.short_desc}</p>
+
                     <div className="flex items-center space-x-4 justify-between">
                       <button
                         onClick={(e) => {

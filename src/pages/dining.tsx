@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import App from "../layouts/app";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { API_ENDPOINTS } from "../configs/configs";
 
 interface Dining {
   image: string;
@@ -22,7 +23,7 @@ function Dining() {
     try {
       // Fetch data from API using axios
       const response = await axios.get(
-        `https://backend.healthylifeinitiative.com/api/dining/?page=${page}`
+        `${API_ENDPOINTS.DINING}/?page=${page}`
       );
       setDining((prevDinings) => {
         const newDinings = response.data.results;

@@ -1,7 +1,7 @@
 import {
   Bars3Icon,
   XMarkIcon,
-  ShoppingBagIcon,
+  ShoppingCartIcon,
 } from "@heroicons/react/24/outline";
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
@@ -90,7 +90,7 @@ function Nav() {
               </button>
 
               <button onClick={() => openModal("cart")}>
-                <ShoppingBagIcon className="h-7 w-7 pry-txt p-0 m-0" />
+                <ShoppingCartIcon className="h-7 w-7 pry-txt p-0 m-0" />
               </button>
 
               {/* Mobile Menu Button */}
