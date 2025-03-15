@@ -25,7 +25,7 @@ function Nav() {
     { name: "Accommodations", link: "/accommodations" },
     { name: "Dining", link: "/dining" },
     { name: "Marketplace", link: "/marketplace" },
-    { name: "Cultural", link: "/cultural" },
+    // { name: "Cultural", link: "/cultural" },
   ];
 
   const isActive = (path: string) => location.pathname === path;
