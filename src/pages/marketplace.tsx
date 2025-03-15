@@ -120,7 +120,7 @@ function Marketplace() {
                       {product.price} RWF
                     </p>
 
-                    <p className="mb-2 text-gray-700">{product.short_desc}</p>
+                    <p className="mb-4 text-gray-700">{product.short_desc}</p>
 
                     <div className="flex items-center space-x-4 justify-between">
                       <button

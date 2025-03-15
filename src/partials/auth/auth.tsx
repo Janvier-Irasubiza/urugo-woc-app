@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useForm, SubmitHandler, FieldErrors } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -7,16 +7,22 @@ import { useNavigate } from "react-router-dom";
 import {
   UserIcon,
   EnvelopeIcon,
-  PhoneIcon,
   LockClosedIcon,
+  PhoneIcon,
 } from "@heroicons/react/24/outline";
 import { API_ENDPOINTS, getCsrfToken } from "../../configs/configs";
 
 // Zod validation schemas
 const signupSchema = z.object({
-  name: z.string().min(2, "Name must be at least 2 characters"),
+  first_name: z.string().min(2, "First name must be at least 2 characters"),
+  last_name: z.string().min(2, "Last name must be at least 2 characters"),
   email: z.string().email("Invalid email address"),
-  phone: z.string().min(10, "Invalid phone number"),
+  phone_number: z
+    .string()
+    .regex(
+      /^\+?1?\d{9,15}$/,
+      'phone_number number must be entered in the format: "+999999999". Up to 15 digits allowed.'
+    ),
   password: z.string().min(6, "Password must be at least 6 characters"),
 });
 
@@ -38,11 +44,41 @@ function Auth() {
     register,
     handleSubmit,
     reset,
+    watch,
+    setValue,
     formState: { errors },
   } = useForm<SignupFormData | LoginFormData>({
     resolver: zodResolver(isLogin ? loginSchema : signupSchema),
     mode: "onBlur",
   });
+
+  // Watch phone_number field to format it
+  const phone_number = watch("phone_number");
+
+  // Format phone_number number to match the regex pattern
+  useEffect(() => {
+    if (!isLogin && phone_number) {
+      // Remove all non-digit characters except + at the beginning
+      let formatted = phone_number.replace(/[^\d+]/g, "");
+
+      // Ensure the + is only at the beginning
+      if (formatted.indexOf("+") > 0) {
+        formatted = formatted.replace(/\+/g, "");
+        formatted = "+" + formatted;
+      }
+
+      // Limit to 15 digits (excluding + if present)
+      if (formatted.startsWith("+")) {
+        formatted = "+" + formatted.substring(1).slice(0, 15);
+      } else {
+        formatted = formatted.slice(0, 15);
+      }
+
+      if (formatted !== phone_number) {
+        setValue("phone_number", formatted);
+      }
+    }
+  }, [phone_number, isLogin, setValue]);
 
   const onSubmit: SubmitHandler<SignupFormData | LoginFormData> = async (
     data
@@ -55,7 +91,18 @@ function Auth() {
         ? `${API_ENDPOINTS.LOGIN}/`
         : `${API_ENDPOINTS.REGISTER}/`;
 
-      const response = await axios.post(endpoint, data, {
+      // For signup, combine first_name and last_name into name
+      let submitData = data;
+      if (!isLogin) {
+        const signupData = data as SignupFormData;
+        submitData = {
+          ...signupData,
+          first_name: signupData.first_name,
+          last_name: signupData.last_name,
+        };
+      }
+
+      const response = await axios.post(endpoint, submitData, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${localStorage.getItem("access_token")}`,
@@ -66,6 +113,11 @@ function Auth() {
       if (response.data) {
         localStorage.setItem("access_token", response.data.access);
         localStorage.setItem("refresh_token", response.data.refresh);
+        localStorage.setItem("user_id", response.data.user_id);
+        localStorage.setItem("first_name", response.data.first_name);
+        localStorage.setItem("last_name", response.data.last_name);
+        localStorage.setItem("email", response.data.email);
+        localStorage.setItem("phone_number", response.data.phone_number);
         navigate("/me");
       }
     } catch (err) {
@@ -117,22 +169,42 @@ function Auth() {
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
           {!isLogin && (
-            <div>
-              <div className="flex items-center bg-gray-100 p-3 rounded-full">
-                <UserIcon className="h-5 w-5 text-gray-400 mr-2" />
-                <input
-                  {...register("name")}
-                  type="text"
-                  placeholder="Full Name"
-                  className="flex-1 bg-transparent outline-none"
-                  disabled={loading}
-                />
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <div className="flex items-center bg-gray-100 p-3 rounded-full">
+                  <UserIcon className="h-5 w-5 text-gray-400 mr-2" />
+                  <input
+                    {...register("first_name")}
+                    type="text"
+                    placeholder="First Name"
+                    className="flex-1 bg-transparent outline-none"
+                    disabled={loading}
+                  />
+                </div>
+                {getErrorMessage("first_name") && (
+                  <p className="text-red-500 text-sm ml-4">
+                    {getErrorMessage("first_name")}
+                  </p>
+                )}
               </div>
-              {getErrorMessage("name") && (
-                <p className="text-red-500 text-sm ml-4">
-                  {getErrorMessage("name")}
-                </p>
-              )}
+
+              <div>
+                <div className="flex items-center bg-gray-100 p-3 rounded-full">
+                  <UserIcon className="h-5 w-5 text-gray-400 mr-2" />
+                  <input
+                    {...register("last_name")}
+                    type="text"
+                    placeholder="Last Name"
+                    className="flex-1 bg-transparent outline-none"
+                    disabled={loading}
+                  />
+                </div>
+                {getErrorMessage("last_name") && (
+                  <p className="text-red-500 text-sm ml-4">
+                    {getErrorMessage("last_name")}
+                  </p>
+                )}
+              </div>
             </div>
           )}
 
@@ -159,16 +231,16 @@ function Auth() {
               <div className="flex items-center bg-gray-100 p-3 rounded-full">
                 <PhoneIcon className="h-5 w-5 text-gray-400 mr-2" />
                 <input
-                  {...register("phone")}
+                  {...register("phone_number")}
                   type="tel"
-                  placeholder="Phone number"
+                  placeholder="phone_number (+999999999)"
                   className="flex-1 bg-transparent outline-none"
                   disabled={loading}
                 />
               </div>
-              {getErrorMessage("phone") && (
+              {getErrorMessage("phone_number") && (
                 <p className="text-red-500 text-sm ml-4">
-                  {getErrorMessage("phone")}
+                  {getErrorMessage("phone_number")}
                 </p>
               )}
             </div>

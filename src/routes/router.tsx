@@ -11,6 +11,7 @@ import EventDetails from "../pages/info";
 import Dashboard from "../pages/dashboard/home";
 import Settings from "../pages/dashboard/settings";
 import ProtectedRoute from "../configs/protect-route";
+import MyCart from "../pages/dashboard/my-cart";
 
 function Router() {
   return (
@@ -32,6 +33,7 @@ function Router() {
           <Route path="/me" element={<DashboardLayout />}>
             <Route index element={<Dashboard />} />
             <Route path="settings" element={<Settings />} />
+            <Route path="cart" element={<MyCart />} />
           </Route>
         </Route>
 

@@ -37,8 +37,8 @@ function Cart() {
   );
 
   return (
-    <div className="p-6 space-y-6">
-      <h2 className="text-3xl font-bold text-blue-900">Your Cart</h2>
+    <div className="p-6 space-y-12">
+      <h2 className="text-3xl font-bold text-blue-900">My Shopping Cart</h2>
 
       {cartItems.length === 0 ? (
         <p className="text-gray-600 text-center">
@@ -85,7 +85,7 @@ function Cart() {
           </div>
 
           {/* Checkout Button */}
-          <button className="w-full py-3 mt-4 rounded-full bg-orange-600 text-white hover:bg-orange-700 transition">
+          <button className="w-full py-3 mt-4 rounded-full btn-primary text-white transition">
             Proceed to Checkout
           </button>
         </>

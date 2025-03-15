@@ -1,30 +1,29 @@
+import { UserCircleIcon, ChartBarIcon } from "@heroicons/react/16/solid";
 import {
-  UserCircleIcon,
-  ChartBarIcon,
-  CogIcon,
-} from "@heroicons/react/16/solid";
-import { ArrowRightOnRectangleIcon } from "@heroicons/react/24/outline";
+  ArrowRightOnRectangleIcon,
+  ShoppingCartIcon,
+} from "@heroicons/react/24/outline";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { API_ENDPOINTS } from "../../configs/configs";
 
 interface SidebarProps {
   user: {
-    name: string;
-    email: string;
+    name?: string;
+    email?: string;
   };
+  active?: string;
 }
 
-export const Sidebar = ({ user }: SidebarProps) => {
+export const Sidebar = ({ user, active }: SidebarProps) => {
   const navigate = useNavigate();
   const handleLogout = async () => {
     try {
       const refreshToken = localStorage.getItem("refresh_token");
 
-      // Ensure you're sending the refresh token in the body
-      const response = await axios.post(
-        API_ENDPOINTS.LOGOUT,
-        { refresh: refreshToken }, // This is crucial
+      await axios.post(
+        `${API_ENDPOINTS.LOGOUT}/`,
+        { refresh: refreshToken },
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("access_token")}`,
@@ -56,15 +55,30 @@ export const Sidebar = ({ user }: SidebarProps) => {
         </div>
       </div>
       <nav className="space-y-4">
-        <Link to="/me" className="flex items-center p-3 bg-gray-200 rounded-lg">
+        <Link
+          to="/me"
+          className={`flex items-center p-3 rounded-lg ${
+            active === "dashboard" ? "bg-gray-200" : "hover:bg-gray-200"
+          }`}
+        >
           <ChartBarIcon className="h-5 w-5 text-gray-600 mr-2" /> Dashboard
         </Link>
         <Link
+          to="/me/cart"
+          className={`flex items-center p-3 hover:bg-gray-200 rounded-lg ${
+            active === "cart" ? "bg-gray-200" : "hover:bg-gray-200"
+          }`}
+        >
+          <ShoppingCartIcon className="h-5 w-5 text-gray-600 mr-2" /> Cart
+        </Link>
+        {/* <Link
           to="/me/settings"
-          className="flex items-center p-3 hover:bg-gray-200 rounded-lg"
+          className={`flex items-center p-3 hover:bg-gray-200 rounded-lg ${
+            active === "settings" ? "bg-gray-200" : "hover:bg-gray-200"
+          }`}
         >
           <CogIcon className="h-5 w-5 text-gray-600 mr-2" /> Settings
-        </Link>
+        </Link> */}
         <button
           onClick={handleLogout}
           className="flex w-full items-center p-3 hover:bg-red-200 rounded-lg text-red-600"
