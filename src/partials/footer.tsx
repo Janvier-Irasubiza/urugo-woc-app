@@ -30,7 +30,6 @@ const Footer = () => {
   const fetchContact = async () => {
     try {
       const response = await axios.get(`${ABT_ENDPOINTS.CONTACT}/?page=1`);
-      console.log(response.data);
       if (response.data.results) {
         setContact(response.data.results[0]);
       } else {
