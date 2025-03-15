@@ -62,11 +62,11 @@ function Index() {
     }
   };
 
+  console.log(API_ENDPOINTS.PARTNERS);
+  
   const fetchPartners = async () => {
     try {
-      const response = await axios.get(
-        `${API_ENDPOINTS.PARTNERS}/?page=1`
-      );
+      const response = await axios.get(`${API_ENDPOINTS.PARTNERS}/?page=1`);
       setPartners(response.data.results);
     } catch (error) {
       console.error(error);
