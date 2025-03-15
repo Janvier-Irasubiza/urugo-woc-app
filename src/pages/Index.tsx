@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import poster from "/images/sxpra.jpg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons";
-import { API_ENDPOINTS } from "../configs/configs";
+import { ABT_ENDPOINTS, API_ENDPOINTS } from "../configs/configs";
 
 interface Post {
   title: string;
@@ -63,7 +63,8 @@ function Index() {
   };
 
   console.log(API_ENDPOINTS);
-  
+  console.log(ABT_ENDPOINTS);  
+
   const fetchPartners = async () => {
     try {
       const response = await axios.get(`${API_ENDPOINTS.PARTNERS}/?page=1`);
