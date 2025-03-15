@@ -62,7 +62,7 @@ function Index() {
     }
   };
 
-  console.log(API_ENDPOINTS.PARTNERS);
+  console.log(API_ENDPOINTS);
   
   const fetchPartners = async () => {
     try {
