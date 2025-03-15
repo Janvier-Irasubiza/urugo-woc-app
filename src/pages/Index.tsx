@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import poster from "/images/sxpra.jpg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons";
-import { ABT_ENDPOINTS, API_ENDPOINTS } from "../configs/configs";
+import { API_ENDPOINTS } from "../configs/configs";
 
 interface Post {
   title: string;
