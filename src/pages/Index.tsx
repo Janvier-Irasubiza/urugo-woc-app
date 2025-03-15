@@ -62,9 +62,6 @@ function Index() {
     }
   };
 
-  console.log(API_ENDPOINTS);
-  console.log(ABT_ENDPOINTS);  
-
   const fetchPartners = async () => {
     try {
       const response = await axios.get(`${API_ENDPOINTS.PARTNERS}/?page=1`);
