@@ -8,12 +8,13 @@ import poster from "/images/sxpra.jpg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons";
 import { API_ENDPOINTS } from "../configs/configs";
+import Give1 from "../assets/give1.jpg";
 
 interface Post {
   title: string;
   slug: string;
   short_desc: string;
-  image: string;
+  poster: string;
   type: string;
 }
 
@@ -89,19 +90,19 @@ function Index() {
 
   const infoCards = [
     {
-      title: "Urugo Women Opportunity Center",
+      title: "Urugo Women Opportunity center",
       description:
-        "is a safe environment and dedicated facilities located in Kayonza District the Eastern province of Rwanda where women can learn, build new skills, and operate businesses that directly contribute to the local communities.",
+        "Is a safe and welcoming space located in Kayonza District, Eastern Province of Rwanda. It provides dedicated facilities where women can learn, develop new skills, and build sustainable livelihoods that uplift their families and communities. With a deep commitment to women’s empowerment, Urugo is a place of hope and transformation. It brings women together, offering them the tools, support, and opportunities they need to create a brighter future. Every contribution helps change lives, making it possible for more women to gain the skills and confidence to thrive.",
     },
     {
       title: "The Urugo Eco-Lodge",
       description:
-        "is a part of an innovative social enterprise promoting economic empowerment for women. Set in rolling hills with spectacular views and friendly, dedicated staff, it’s the perfect place to discover rural Rwanda, stay en-route on your safari adventure, or hold your next meeting, wedding or special event.",
+        "Offers a unique and meaningful stay in the heart of rural Rwanda. Designed to provide comfort while staying true to sustainable and community-centered values, our deluxe camps feature Wi-Fi, en suite solar-powered hot showers, and private verandas—blending luxury with simplicity. More than just a place to stay, Urugo Eco-Lodge is an experience. Visitors have the opportunity to immerse themselves in the warmth of the local community, supporting initiatives that empower women and foster sustainable development. Its close proximity to Akagera National Park also makes it a perfect resting place for those seeking adventure while contributing to a greater cause.",
     },
     {
       title: "Women and Men Learning Space",
       description:
-        "The Urugo Women’s Opportunity Center provides vocational and  life skills training for women and supports our Men’s Engagement Program, designed to build support for women’s economic and social empowerment in Rwanda.",
+        "The center also focuses on engaging men through the Men's Engagement Programme, teaching them about gender equality and women's rights. This initiative aims to create an environment where women can reach their full potential and exercise their rights. Recognizing that true empowerment requires collective effort, our Men’s Engagement Program encourages men to become allies in gender equality. By fostering understanding and support for women’s economic and social empowerment, we strengthen families and create a more inclusive, prosperous future for all.",
     },
   ];
 
@@ -114,13 +115,14 @@ function Index() {
             <div className="absolute inset-0 md:w-1/2 flex items-center justify-start">
               <div className="p-4 md:p-12">
                 <h3 className="text-white text-lg md:text-4xl font-bold">
-                  Support women’s <br />
-                  Survivors of war
+                  Empower Women, <br />
+                  Transform Lives
                 </h3>
                 <p className="hidden md:block text-white md:mt-4 md:text-xl">
-                  In countries affected by conflict and war, we help the most
-                  marginized women to overcome adversity and rebuild their
-                  lives. Join our mission to make a difference.
+                  In Rwanda and beyond, we support women facing adversity to
+                  reclaim their independence and build a sustainable future.
+                  Your donation today helps us provide skills, education, and
+                  opportunities to the most vulnerable.
                 </p>
                 <button
                   onClick={openModal}
@@ -138,7 +140,7 @@ function Index() {
           {infoCards.map((card, index) => (
             <div
               key={index}
-              className="bg-thrd-level p-6 rounded-lg shadow-lg text-center"
+              className="p-6 rounded-lg shadow-lg text-center bg-green-50"
             >
               {/* Title */}
               <h3 className="font-semibold text-green-700 mb-2 text-3xl md:text-4xl">
@@ -151,27 +153,23 @@ function Index() {
           ))}
         </div>
 
-        <section className="flex flex-col md:flex-row items-center gap-10 mt-20">
-          {/* Images */}
-          <div className="flex flex-col gap-4 w-full">
+        <section className="flex flex-col md:flex-row items-center gap-10 mt-20 border">
+          {/* Images Section */}
+          <div className="relative w-full md:w-1/2 flex flex-col gap-4r">
+            {/* Large Image */}
             <img
-              src="path-to-image.jpg"
+              src={Give1}
               alt="Hands Together"
-              className="rounded-lg"
-            />
-            <img
-              src="path-to-image.jpg"
-              alt="Hands Together"
-              className="rounded-lg"
+              className="w-full rounded-2xl shadow-xl transition-transform duration-300 hover:scale-105"
             />
           </div>
 
           {/* Text Content */}
-          <div className="space-y-8 w-full">
-            <h2 className="text-3xl md:text-4xl font-bold text-green-700">
+          <div className="w-full md:w-1/2 space-y-6 text-center md:text-left">
+            <h2 className="text-3xl md:text-5xl font-bold bg-gradient-to-r from-green-700 to-green-500 text-transparent bg-clip-text">
               Supporting Women’s Economic Development
             </h2>
-            <p className="text-gray-600 text-lg">
+            <p className="text-gray-600 text-lg leading-relaxed">
               By spending your money at the Urugo Women’s Opportunity Center,
               you are contributing to the social and economic development of
               local women and their communities. The Urugo Women’s Opportunity
@@ -182,7 +180,7 @@ function Index() {
             </p>
             <button
               onClick={openModal}
-              className="btn-primary text-white px-12 py-3 rounded-full hover:bg-orange-600"
+              className="btn-primary mt-2 md:mt-8 text-sm md:text-base text-white px-6 py-1 md:px-12 md:py-3 rounded-full hover:bg-orange-600"
             >
               Donate
             </button>
@@ -200,14 +198,15 @@ function Index() {
                 <button
                   onClick={() => setEventsPage((prev) => prev - 1)}
                   disabled={eventsPage === 1}
-                  className="text-primary-dark"
+                  className="text-white btn-primary w-12 h-12 flex items-center justify-center rounded-full shadow-md disabled:opacity-50"
                 >
                   <FontAwesomeIcon icon={faAngleLeft} />
                 </button>
+
                 <button
                   onClick={() => setEventsPage((prev) => prev + 1)}
                   disabled={eventsPage === eventsTotalPages}
-                  className="text-primary-dark"
+                  className="text-white btn-primary w-12 h-12 flex items-center justify-center rounded-full shadow-md disabled:opacity-50"
                 >
                   <FontAwesomeIcon icon={faAngleRight} />
                 </button>
@@ -220,7 +219,7 @@ function Index() {
                   className="bg-thrd-level rounded-lg overflow-hidden shadow-lg"
                 >
                   <img
-                    src={event.image}
+                    src={event.poster}
                     alt={event.title}
                     className="w-full h-64 object-cover"
                   />
@@ -273,7 +272,7 @@ function Index() {
                   className="bg-thrd-level rounded-lg overflow-hidden shadow-lg"
                 >
                   <img
-                    src={update.image}
+                    src={update.poster}
                     alt={update.title}
                     className="w-full h-64 object-cover"
                   />

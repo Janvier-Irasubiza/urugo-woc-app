@@ -11,6 +11,7 @@ import {
   PhoneIcon,
 } from "@heroicons/react/24/outline";
 import { API_ENDPOINTS, getCsrfToken } from "../../configs/configs";
+import Join from "../../assets/join-our-community.jpg";
 
 // Zod validation schemas
 const signupSchema = z.object({
@@ -151,9 +152,9 @@ function Auth() {
       {/* Left Section - Image */}
       <div className="hidden md:block md:w-1/2 rounded-l-2xl overflow-hidden">
         <img
-          src="https://source.unsplash.com/600x600/?community,helping"
+          src={Join}
           alt="Join Community"
-          className="object-cover w-full h-full border"
+          className="object-cover w-full h-full"
         />
       </div>
 

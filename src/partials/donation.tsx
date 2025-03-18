@@ -1,5 +1,10 @@
-import { UserIcon, EnvelopeIcon, CurrencyDollarIcon } from "@heroicons/react/24/outline";
+import {
+  UserIcon,
+  EnvelopeIcon,
+  CurrencyDollarIcon,
+} from "@heroicons/react/24/outline";
 import { useState } from "react";
+import Donate from "../assets/donate.webp";
 
 function Donation() {
   const [selectedAmount, setSelectedAmount] = useState<number | null>(null);
@@ -22,7 +27,7 @@ function Donation() {
       {/* Left Section - Image */}
       <div className="hidden md:block md:w-1/2 rounded-l-2xl overflow-hidden">
         <img
-          src="https://source.unsplash.com/600x600/?help,donation"
+          src={Donate}
           alt="Donation Community"
           className="object-cover w-full h-full"
         />
@@ -103,4 +108,4 @@ function Donation() {
   );
 }
 
-export default Donation;    
+export default Donation;
