@@ -153,7 +153,7 @@ function Index() {
           ))}
         </div>
 
-        <section className="flex flex-col md:flex-row items-center gap-10 mt-20 border">
+        <section className="flex flex-col md:flex-row items-center gap-10 mt-20">
           {/* Images Section */}
           <div className="relative w-full md:w-1/2 flex flex-col gap-4r">
             {/* Large Image */}
