@@ -1,11 +1,6 @@
-import { CodeBracketIcon } from "@heroicons/react/16/solid";
-import {
-  EnvelopeIcon,
-  MapPinIcon,
-  PhoneIcon,
-} from "@heroicons/react/24/outline";
 import axios from "axios";
 import { useState, useEffect } from "react";
+import { ABT_ENDPOINTS } from "../configs/configs";
 import {
   FaFacebookF,
   FaWhatsapp,
@@ -15,7 +10,6 @@ import {
 } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 import { Link } from "react-router-dom";
-import { ABT_ENDPOINTS } from "../configs/configs";
 
 interface ContactProps {
   phone_number: string;
@@ -25,19 +19,15 @@ interface ContactProps {
 
 const Footer = () => {
   const [contact, setContact] = useState<ContactProps | null>(null);
-  const [error, setError] = useState<string | null>(null);
 
   const fetchContact = async () => {
     try {
       const response = await axios.get(`${ABT_ENDPOINTS.CONTACT}/?page=1`);
       if (response.data.results) {
         setContact(response.data.results[0]);
-      } else {
-        setError("No contact information found.");
       }
     } catch (error) {
       console.error(error);
-      setError("Failed to fetch contact information.");
     }
   };
 
@@ -47,104 +37,99 @@ const Footer = () => {
 
   return (
     <footer className="bg-gray-800 text-gray-200 pt-10 px-4 md:px-20">
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-        {/* Menu Links - Column 1 */}
-        <div>
-          <h4 className="text-lg font-semibold mb-4">About Us</h4>
-          <ul className="space-y-2">
-            <li>
-              <Link to="/about">About Us</Link>
-            </li>
-            <li>
-              <Link to="/events">Events</Link>
-            </li>
-            {/* <li>
-              <Link to="/cultural">Cultural</Link>
-            </li> */}
-          </ul>
-        </div>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+          <div className="col-span-1 md:col-span-2">
+            <div className="flex items-center space-x-2 mb-6">
+              <span className="text-3xl font-bold text-gray-100">UrugoWOC</span>
+            </div>
+            <p className="text-gray-300 mb-6 text-lg leading-relaxed max-w-md">
+              Empowering women in Rwanda through education, skills training, and
+              community support. Building sustainable futures, one woman at a
+              time.
+            </p>
+            <div className="flex space-x-4">
+              <div className="flex space-x-4 mt-4 justify-center">
+                <SocialIcon Icon={FaFacebookF} aria-label="Facebook" />
+                <SocialIcon Icon={FaWhatsapp} aria-label="WhatsApp" />
+                <SocialIcon Icon={FaInstagram} aria-label="Instagram" />
+                <SocialIcon Icon={FaYoutube} aria-label="YouTube" />
+                <SocialIcon Icon={FaXTwitter} aria-label="Twitter" />
+                <SocialIcon Icon={FaLinkedinIn} aria-label="LinkedIn" />
+              </div>
+            </div>
+          </div>
 
-        {/* Menu Links - Column 2 */}
-        <div>
-          <h4 className="text-lg font-semibold mb-4">Marketplace</h4>
-          <ul className="space-y-2">
-            <li>
-              <Link to="/marketplace">Marketplace</Link>
-            </li>
-            <li>
-              <Link to="/accommodations">Accommodations</Link>
-            </li>
-            <li>
-              <Link to="/dining">Dining</Link>
-            </li>
-          </ul>
-        </div>
-
-        {/* Contact Information - Column 3 */}
-        <div>
-          <h4 className="text-lg font-semibold mb-4">Contact Us</h4>
-          {error ? (
-            <p className="text-red-500">{error}</p>
-          ) : contact ? (
+          <div>
+            <h3 className="text-xl font-semibold mb-6 text-gray-100">
+              Quick Links
+            </h3>
             <ul className="space-y-3">
-              <li className="flex items-center gap-2">
-                <MapPinIcon className="h-5 w-5 text-gray-400" />
-                {contact.address}
+              <li>
+                <Link
+                  to="/about"
+                  className="text-gray-300 hover:text-primary transition-colors"
+                >
+                  About Us
+                </Link>
               </li>
-              <li className="flex items-center gap-2">
-                <PhoneIcon className="h-5 w-5 text-gray-400" />
-                {contact.phone_number}
+              <li>
+                <Link
+                  to="/events"
+                  className="text-gray-300 hover:text-primary transition-colors"
+                >
+                  Events
+                </Link>
               </li>
-              <li className="flex items-center gap-2">
-                <EnvelopeIcon className="h-5 w-5 text-gray-400" />
-                {contact.email}
+              <li>
+                <Link
+                  to="/accommodations"
+                  className="text-gray-300 hover:text-primary transition-colors"
+                >
+                  Accommodations
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/dining"
+                  className="text-gray-300 hover:text-primary transition-colors"
+                >
+                  Dining
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/marketplace"
+                  className="text-gray-300 hover:text-primary transition-colors"
+                >
+                  Marketplace
+                </Link>
               </li>
             </ul>
-          ) : (
-            <p>Loading contact information...</p>
-          )}
-        </div>
-
-        {/* Newsletter & Social Icons - Column 4 */}
-        <div>
-          <h4 className="text-lg font-semibold mb-4">Join Our Community</h4>
-          <div className="flex items-center space-x-2 bg-gray-700 rounded-lg p-2">
-            <EnvelopeIcon className="h-5 w-5 text-gray-400" />
-            <input
-              type="email"
-              name="email"
-              placeholder="Enter Your Email"
-              className="bg-transparent outline-none text-white placeholder-gray-400 flex-grow"
-              aria-label="Enter your email to join our community"
-            />
-            <button className="btn-primary text-white px-4 py-1 rounded-full hover:bg-orange-600 transition">
-              Join
-            </button>
           </div>
 
-          {/* Social Media Icons */}
-          <div className="flex space-x-4 mt-4 justify-center">
-            <SocialIcon Icon={FaFacebookF} aria-label="Facebook" />
-            <SocialIcon Icon={FaWhatsapp} aria-label="WhatsApp" />
-            <SocialIcon Icon={FaInstagram} aria-label="Instagram" />
-            <SocialIcon Icon={FaYoutube} aria-label="YouTube" />
-            <SocialIcon Icon={FaXTwitter} aria-label="Twitter" />
-            <SocialIcon Icon={FaLinkedinIn} aria-label="LinkedIn" />
+          <div>
+            <h3 className="text-xl font-semibold mb-6 text-gray-100">
+              Contact Info
+            </h3>
+            <div className="space-y-3 text-gray-300">
+              <p>{contact?.address}</p>
+              <p>{contact?.email}</p>
+              <p>{contact?.phone_number}</p>
+            </div>
           </div>
         </div>
-      </div>
-      <div className="border-t border-gray-700 mt-8 py-4 text-center flex justify-between items-center">
-        <p>&copy; {new Date().getFullYear()} UrugoWoc. All Rights Reserved.</p>
-        <p className="flex items-center gap-2">
-          <CodeBracketIcon className="h-5 w-5" />{" "}
-          <span className="font-semibold">RB-A</span>
-        </p>
+
+        <div className="border-t border-gray-800 mt-12 pt-8 text-center">
+          <p className="text-gray-400">
+            © 2024 Urugo Women's Opportunity Center. All rights reserved.
+          </p>
+        </div>
       </div>
     </footer>
   );
 };
 
-// Reusable Social Icon Component
 type SocialIconProps = {
   Icon: React.ElementType;
   ariaLabel?: string;

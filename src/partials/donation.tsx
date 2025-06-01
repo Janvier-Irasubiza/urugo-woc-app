@@ -35,7 +35,7 @@ function Donation() {
 
       {/* Right Section - Donation Form */}
       <div className="md:w-1/2 p-8 space-y-6">
-        <h2 className="text-3xl font-bold text-blue-900">
+        <h2 className="text-3xl font-bold text-primary">
           Helping To Make Our World Better Living
         </h2>
 
@@ -98,7 +98,7 @@ function Donation() {
           {/* Submit Button */}
           <button
             type="submit"
-            className="w-full py-3 rounded-full bg-orange-600 text-white hover:bg-orange-700 transition"
+            className="w-full py-3 rounded-full bg-primary text-white hover:bg-primary-hover transition"
           >
             Continue
           </button>

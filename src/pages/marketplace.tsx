@@ -75,7 +75,7 @@ function Marketplace() {
       <div className="px-4 md:px-20 md:py-10 space-y-10">
         {/* Search Section */}
         <div className="flex justify-center">
-          <div className="flex items-center justify-center space-x-4 border-2 border-orange-400 rounded-full px-4 py-2 w-full md:w-1/2">
+          <div className="flex items-center justify-center space-x-4 border-2 border-[#7B6828] rounded-full px-4 py-2 w-full md:w-1/2">
             <select
               value={category}
               onChange={(e) => setCategory(e.target.value)}

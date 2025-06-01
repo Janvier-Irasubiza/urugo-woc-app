@@ -13,17 +13,17 @@ function Cart() {
   const [cartItems, setCartItems] = useState<CartItem[]>([
     {
       id: 1,
-      name: "Handwoven Basket",
+      name: "Farm-fresh yoghurt",
       price: 45,
       quantity: 2,
       image: "https://source.unsplash.com/100x100/?basket",
     },
     {
       id: 2,
-      name: "Eco-Friendly Mug",
+      name: "Basket",
       price: 25,
       quantity: 1,
-      image: "https://source.unsplash.com/100x100/?mug",
+      image: "https://source.unsplash.com/100x100/?basket",
     },
   ]);
 
@@ -38,7 +38,7 @@ function Cart() {
 
   return (
     <div className="p-6 space-y-12">
-      <h2 className="text-3xl font-bold text-blue-900">My Shopping Cart</h2>
+      <h2 className="text-3xl font-bold text-primary">My Shopping Cart</h2>
 
       {cartItems.length === 0 ? (
         <p className="text-gray-600 text-center">
@@ -62,7 +62,7 @@ function Cart() {
                   <div>
                     <h4 className="text-lg font-semibold">{item.name}</h4>
                     <p className="text-gray-500">
-                      ${item.price} x {item.quantity}
+                      {item.price} RWF x {item.quantity}
                     </p>
                   </div>
                 </div>
@@ -79,8 +79,8 @@ function Cart() {
           {/* Total Price */}
           <div className="flex justify-between items-center mt-6">
             <span className="text-xl font-bold text-gray-800">Total:</span>
-            <span className="text-xl font-bold text-orange-600">
-              ${totalPrice}
+            <span className="text-xl font-bold text-secondary">
+              {totalPrice} RWF
             </span>
           </div>
 

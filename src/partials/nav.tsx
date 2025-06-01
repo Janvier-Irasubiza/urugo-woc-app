@@ -9,6 +9,7 @@ import Modal from "../components/modal";
 import Auth from "./auth/auth";
 import Cart from "./cart";
 import Donation from "./donation";
+import { PALETTE } from "../configs/app";
 
 function Nav() {
   const location = useLocation();
@@ -54,7 +55,14 @@ function Nav() {
       <nav className="relative">
         <div className="border-b py-6 px-4 md:px-20">
           <div className="flex justify-between items-center">
-            <div className="text-3xl font-semibold">Logo</div>
+            <Link to="/" className="flex items-center space-x-2">
+              <span
+                className="text-3xl font-bold"
+                style={{ color: PALETTE.brunswickGreen }}
+              >
+                UrugoWOC
+              </span>
+            </Link>
 
             {/* Desktop Menu */}
             <div className="space-x-12 hidden md:flex">
@@ -62,13 +70,13 @@ function Nav() {
                 <Link
                   key={index}
                   to={item.link}
-                  className={`font-medium text-base ${
+                  className={`font-medium text-sm font-semibold ${
                     isActive(item.link)
-                      ? "text-primary border-b-2 border-b-primary text-lg font-semibold"
+                      ? "text-primary border-b-2 border-b-primary text-lg"
                       : "text-gray-600 hover:text-gray-800"
                   } transition`}
                 >
-                  {item.name}
+                  {item.name.toUpperCase()}
                 </Link>
               ))}
             </div>
@@ -77,20 +85,23 @@ function Nav() {
             <div className="space-x-3 md:space-x-6 flex items-center">
               <button
                 onClick={() => openModal("auth")}
-                className="hidden md:block font-medium border-2 btn-primary-outline hover:text-white text-gray-500 px-4 py-1 rounded-full transition"
+                className="hidden md:block font-medium border-2 btn-primary-outline hover:text-white text-gray-500 px-12 py-2 rounded-full transition"
               >
                 Join Us
               </button>
 
               <button
                 onClick={() => openModal("donation")}
-                className="font-medium border-2 btn-primary hover:text-white text-gray-500 px-4 py-1 rounded-full transition"
+                className="font-medium border-2 btn-primary hover:text-white text-gray-500 px-12 py-2 rounded-full transition"
               >
                 Donate
               </button>
 
-              <button onClick={() => openModal("cart")}>
-                <ShoppingCartIcon className="h-7 w-7 pry-txt p-0 m-0" />
+              <button
+                onClick={() => openModal("cart")}
+                className="p-2 m-0 bg-transparent border-none hover:bg-gray-200 rounded-full"
+              >
+                <ShoppingCartIcon className="h-7 w-7 text-primary" />
               </button>
 
               {/* Mobile Menu Button */}

@@ -1,10 +1,12 @@
 :root {
-  --primary-color: #D97706;
-  --primary-color-hover: #b46205;
-  --secondary-color: #5B7E3E;
-  --thrd-level-color: #F5F5F5;
-  --primary-dark-color: #333333;
-  --divider-color: #E0E0E0;
+  --primary-color: #484E2C;
+  --primary-color-hover: #33381f;
+  --secondary-color: #7B6828;
+  --thrd-level-color: #F5F5DC;
+  --primary-dark-color: #101004;
+  --divider-color: #D0D0D0;
+  --section-spacing: 4rem;
+  --border-radius: 8px;
 }
 
 /* Minimize browser scroll bar width */
@@ -18,7 +20,10 @@
 }
 
 body {
-  font-family: "Atkinson Hyperlegible Next", serif;
+  /* font-family: "Atkinson Hyperlegible Next", serif; */
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 
+               "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, 
+               "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   font-optical-sizing: auto;
   font-weight: 400;
   font-style: normal;
@@ -105,4 +110,118 @@ body {
 
 .border-b-primary {
   border-bottom: 2px solid var(--primary-color);
+}
+
+/* Slider Styles */
+.slider-container {
+  width: 100%;
+  height: 400px;
+  position: relative;
+  overflow: hidden;
+  margin-bottom: var(--section-spacing);
+}
+
+.slider {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+  height: 100%;
+}
+
+.slide {
+  min-width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.slide-content {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 2rem;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
+  color: white;
+}
+
+.slider-controls {
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
+  display: flex;
+  gap: 1rem;
+}
+
+.slider-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.5);
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.slider-dot.active {
+  background: white;
+}
+
+/* Content Sections */
+.content-section {
+  padding: var(--section-spacing) 0;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.section-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  padding: 0 1rem;
+}
+
+.section-item {
+  background: var(--thrd-level-color);
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  transition: transform 0.3s;
+}
+
+.section-item:hover {
+  transform: translateY(-5px);
+}
+
+.section-item img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.section-item-content {
+  padding: 1.5rem;
+}
+
+.section-item h3 {
+  color: var(--primary-dark-color);
+  margin-bottom: 0.5rem;
+}
+
+.section-item p {
+  color: #666;
+  line-height: 1.6;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .slider-container {
+    height: 300px;
+  }
+  
+  .section-grid {
+    grid-template-columns: 1fr;
+  }
 }
