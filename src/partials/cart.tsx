@@ -1,35 +1,9 @@
 import { TrashIcon } from "@heroicons/react/24/outline";
-import { useState } from "react";
-
-interface CartItem {
-  id: number;
-  name: string;
-  price: number;
-  quantity: number;
-  image: string;
-}
+import { useCart } from "../contexts/cart";
+import { formatNumber } from "../configs/app";
 
 function Cart() {
-  const [cartItems, setCartItems] = useState<CartItem[]>([
-    {
-      id: 1,
-      name: "Farm-fresh yoghurt",
-      price: 45,
-      quantity: 2,
-      image: "https://source.unsplash.com/100x100/?basket",
-    },
-    {
-      id: 2,
-      name: "Basket",
-      price: 25,
-      quantity: 1,
-      image: "https://source.unsplash.com/100x100/?basket",
-    },
-  ]);
-
-  const removeItem = (id: number) => {
-    setCartItems(cartItems.filter((item) => item.id !== id));
-  };
+  const { cartItems, removeFromCart } = useCart();
 
   const totalPrice = cartItems.reduce(
     (total, item) => total + item.price * item.quantity,
@@ -62,12 +36,12 @@ function Cart() {
                   <div>
                     <h4 className="text-lg font-semibold">{item.name}</h4>
                     <p className="text-gray-500">
-                      {item.price} RWF x {item.quantity}
+                      {formatNumber(item.price)} x {item.quantity}
                     </p>
                   </div>
                 </div>
                 <button
-                  onClick={() => removeItem(item.id)}
+                  onClick={() => removeFromCart(item.id)}
                   className="text-red-500 hover:text-red-700"
                 >
                   <TrashIcon className="h-5 w-5" />
@@ -80,7 +54,7 @@ function Cart() {
           <div className="flex justify-between items-center mt-6">
             <span className="text-xl font-bold text-gray-800">Total:</span>
             <span className="text-xl font-bold text-secondary">
-              {totalPrice} RWF
+              {formatNumber(totalPrice)}
             </span>
           </div>
 

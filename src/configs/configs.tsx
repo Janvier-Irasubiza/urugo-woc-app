@@ -18,6 +18,10 @@ export const ABT_ENDPOINTS = {
   ABOUT: `${ABT_BASE_URL}/about`,
   TEAM: `${ABT_BASE_URL}/team`,
   CONTACT: `${ABT_BASE_URL}/contact`,
+  SLIDERS: `${ABT_BASE_URL}/sliders`,
+  GALLERY: `${ABT_BASE_URL}/gallery`,
+  VIDEOS: `${ABT_BASE_URL}/videos`,
+  TESTIMONIALS: `${ABT_BASE_URL}/testimonials`,
 };
 
 export function getCsrfToken() {
