@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import { API_ENDPOINTS } from "../configs/configs";
+import { Link } from "react-router-dom";
 
 interface Event {
   title: string;
@@ -98,9 +99,12 @@ function UpcomingEvents() {
                   <p className="text-gray-600 mb-4 leading-relaxed">
                     {event.short_desc.substring(0, 100)}...
                   </p>
-                  <button className="text-primary font-semibold hover:text-primary-dark transition-colors group-hover:translate-x-2 transform duration-300">
+                  <Link
+                    to={`/atl/${event.slug}`}
+                    className="text-primary font-semibold hover:text-primary-dark transition-colors group-hover:translate-x-2 transform duration-300"
+                  >
                     Learn More →
-                  </button>
+                  </Link>
                 </div>
               </div>
             ))}

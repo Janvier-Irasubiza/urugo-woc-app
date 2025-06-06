@@ -9,8 +9,8 @@ import Modal from "../components/modal";
 import Auth from "./auth/auth";
 import Cart from "./cart";
 import Donation from "./donation";
-import { PALETTE } from "../configs/app";
 import { useCart } from "../contexts/cart";
+import Logo from "../assets/urugo.svg";
 
 function Nav() {
   const location = useLocation();
@@ -58,12 +58,7 @@ function Nav() {
         <div className="border-b py-4 px-4 sm:px-6 lg:px-8 xl:px-20">
           <div className="flex justify-between items-center">
             <Link to="/" className="flex items-center space-x-2">
-              <span
-                className="text-2xl sm:text-3xl font-bold"
-                style={{ color: PALETTE.brunswickGreen }}
-              >
-                UrugoWOC
-              </span>
+              <img src={Logo} alt="UrugoWOC" className="h-14 w-14" />
             </Link>
 
             {/* Desktop Menu */}

@@ -10,6 +10,7 @@ import {
 } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 import { Link } from "react-router-dom";
+import Logo from "../assets/urugo.svg";
 
 interface ContactProps {
   phone_number: string;
@@ -41,7 +42,7 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div className="col-span-1 md:col-span-2">
             <div className="flex items-center space-x-2 mb-6">
-              <span className="text-3xl font-bold text-gray-100">UrugoWOC</span>
+              <img src={Logo} alt="UrugoWOC" className="h-20 w-20" />
             </div>
             <p className="text-gray-300 mb-6 text-lg leading-relaxed max-w-md">
               Empowering women in Rwanda through education, skills training, and
