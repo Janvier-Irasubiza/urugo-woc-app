@@ -17,6 +17,11 @@ import Programs from "../components/programs";
 import ImpactStats from "../components/impact-stats";
 import Featured from "../components/featured";
 import UpcommingEvents from "../components/upcomming-events";
+import {
+  useSEO,
+  generateStructuredData,
+  websiteStructuredData,
+} from "../utils/seo";
 
 // Add type definition for isVisible state
 type VisibilityState = {
@@ -37,6 +42,17 @@ function Index() {
   const [activeModalComp, setActiveModalComp] = useState<"auth" | "donation">(
     "auth"
   );
+
+  // SEO Configuration
+  useSEO({
+    title: "Urugo WOC - Empowering Women and Building Communities in Rwanda",
+    description:
+      "Join Urugo WOC in transforming lives through women empowerment, cultural experiences, and community development. Discover our programs, events, dining experiences, and marketplace.",
+    keywords:
+      "women empowerment Rwanda, community development, cultural experiences, dining Rwanda, marketplace, events, Urugo WOC, women's organization",
+    url: window.location.href,
+    type: "website",
+  });
 
   const openModal = (type: "auth" | "donation") => {
     setIsModalOpen(true);
@@ -60,6 +76,11 @@ function Index() {
     elements.forEach((el) => observer.observe(el));
 
     return () => observer.disconnect();
+  }, []);
+
+  // Add Website structured data
+  useEffect(() => {
+    generateStructuredData("WebSite", websiteStructuredData);
   }, []);
 
   const renderModalContent = () => {

@@ -4,6 +4,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import { ShoppingBagIcon } from "@heroicons/react/16/solid";
 import { API_ENDPOINTS } from "../configs/configs";
+import { useSEO, generateStructuredData } from "../utils/seo";
 
 interface Marketplace {
   image: string;
@@ -20,6 +21,15 @@ function Marketplace() {
   const [products, setProducts] = useState<Marketplace[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+
+  // SEO Configuration
+  useSEO({
+    title: "Marketplace - Products & Accommodations | Urugo WOC",
+    description: "Shop authentic Rwandan products and find accommodations at Urugo WOC marketplace. Support women entrepreneurs and discover unique local items.",
+    keywords: "Rwandan products, marketplace, accommodations Rwanda, women entrepreneurs, local products, Urugo WOC shop",
+    url: window.location.href,
+    type: "website"
+  });
 
   const fetchProducts = async (page = 1, reset = false) => {
     try {
@@ -69,6 +79,35 @@ function Marketplace() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, [currentPage, totalPages]);
+
+  // Add Marketplace structured data
+  useEffect(() => {
+    if (products.length > 0) {
+      generateStructuredData('Organization', {
+        name: 'Urugo WOC Marketplace',
+        description: 'Authentic Rwandan products and accommodations marketplace',
+        url: window.location.href,
+        hasOfferCatalog: {
+          '@type': 'OfferCatalog',
+          name: 'Urugo WOC Products',
+          itemListElement: products.map((product, index) => ({
+            '@type': 'Offer',
+            position: index + 1,
+            itemOffered: {
+              '@type': 'Product',
+              name: product.title,
+              description: product.short_desc,
+              image: product.image,
+              category: product.category
+            },
+            price: product.price,
+            priceCurrency: 'RWF',
+            availability: 'https://schema.org/InStock'
+          }))
+        }
+      });
+    }
+  }, [products]);
 
   return (
     <App>

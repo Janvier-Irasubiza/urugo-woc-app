@@ -57,6 +57,7 @@ function ProductInfo() {
               {/* image */}
               <img
                 src={productDetails.image}
+                alt={productDetails.title}
                 className="rounded-xl object-cover w-full h-64 shadow-lg hover:scale-105 transition-transform"
               />
             </div>

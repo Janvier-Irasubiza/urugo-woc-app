@@ -3,6 +3,7 @@ import App from "../layouts/app";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { API_ENDPOINTS } from "../configs/configs";
+import { useSEO, generateStructuredData } from "../utils/seo";
 
 interface Post {
   title: string;
@@ -18,6 +19,17 @@ function Events() {
   const [events, setEvents] = useState<Post[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+
+  // SEO Configuration
+  useSEO({
+    title: "Events - Upcoming & Happening Now | Urugo WOC",
+    description:
+      "Join Urugo WOC events and activities. Discover upcoming women empowerment events, community programs, and cultural activities happening in Rwanda.",
+    keywords:
+      "events Rwanda, women empowerment events, community activities, Urugo WOC events, upcoming events, cultural events Rwanda",
+    url: window.location.href,
+    type: "website",
+  });
 
   const fetchEvents = async (page = 1) => {
     if (page > totalPages) return;
@@ -65,6 +77,33 @@ function Events() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Add Events structured data
+  useEffect(() => {
+    if (events.length > 0) {
+      generateStructuredData("Organization", {
+        name: "Urugo WOC Events",
+        description: "Women empowerment and community development events",
+        url: window.location.href,
+        event: events.map((event) => ({
+          "@type": "Event",
+          name: event.title,
+          description: event.short_desc,
+          image: event.image,
+          eventStatus:
+            event.status === "happening"
+              ? "https://schema.org/EventScheduled"
+              : event.status === "upcoming"
+              ? "https://schema.org/EventScheduled"
+              : "https://schema.org/EventPostponed",
+          organizer: {
+            "@type": "Organization",
+            name: "Urugo WOC",
+          },
+        })),
+      });
+    }
+  }, [events]);
+
   const happeningNow = events.filter((event) => event.status === "happening");
   const upcomingEvents = events.filter((event) => event.status === "upcoming");
   const archivedEvents = events.filter((event) => event.status === "archived");
@@ -83,7 +122,7 @@ function Events() {
                   key={index}
                   className="border w-full md:h-[352px] rounded-lg overflow-hidden bg-gray-200 flex items-center justify-center"
                 >
-                  <img src={event.image} alt="" />
+                  <img src={event.image} alt={event.title} />
                 </div>
               </Link>
             ))}

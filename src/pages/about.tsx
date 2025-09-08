@@ -9,6 +9,7 @@ import {
 } from "react-icons/fa";
 import axios from "axios";
 import { ABT_ENDPOINTS } from "../configs/configs";
+import { useSEO, generateStructuredData } from "../utils/seo";
 
 interface AboutUsProps {
   title: string;
@@ -29,6 +30,15 @@ interface TeamProps {
 function About() {
   const [aboutUs, setAboutUs] = useState<AboutUsProps[]>([]);
   const [team, setTeam] = useState<TeamProps[]>([]);
+
+  // SEO Configuration
+  useSEO({
+    title: "About Urugo WOC - Our Story, Mission & Team | Women Empowerment Rwanda",
+    description: "Learn about Urugo WOC's mission to empower women and build stronger communities in Rwanda. Meet our passionate team and discover our journey since 2015.",
+    keywords: "about Urugo WOC, women empowerment Rwanda, our story, team, mission, vision, community development Rwanda",
+    url: window.location.href,
+    type: "website"
+  });
 
   const fetchAboutUs = async () => {
     try {
@@ -52,6 +62,32 @@ function About() {
     fetchAboutUs();
     fetchStaff();
   }, []);
+
+  // Add About Page structured data
+  useEffect(() => {
+    if (aboutUs.length > 0) {
+      const mainAbout = aboutUs.find((item) => item.title === "About");
+      if (mainAbout) {
+        generateStructuredData('Organization', {
+          name: 'Urugo WOC',
+          description: mainAbout.description,
+          url: window.location.origin,
+          foundingDate: '2015',
+          address: {
+            '@type': 'PostalAddress',
+            'addressCountry': 'RW',
+            'addressRegion': 'Kigali'
+          },
+          employee: team.map(member => ({
+            '@type': 'Person',
+            name: member.name,
+            jobTitle: member.role,
+            image: member.image
+          }))
+        });
+      }
+    }
+  }, [aboutUs, team]);
 
   const mainAbout = aboutUs.find((item) => item.title === "About");
 

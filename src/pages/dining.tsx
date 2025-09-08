@@ -3,6 +3,7 @@ import App from "../layouts/app";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { API_ENDPOINTS } from "../configs/configs";
+import { useSEO, generateStructuredData } from "../utils/seo";
 
 interface Dining {
   image: string;
@@ -17,6 +18,15 @@ function Dining() {
   const [Dining, setDining] = useState<Dining[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+
+  // SEO Configuration
+  useSEO({
+    title: "Dining Experiences - African & Kinyarwanda Cuisine | Urugo WOC",
+    description: "Discover authentic African and Kinyarwanda dining experiences at Urugo WOC. Experience traditional Rwandan cuisine, African dishes, and cultural dining traditions.",
+    keywords: "Rwandan cuisine, African food, Kinyarwanda dishes, traditional dining Rwanda, cultural food experiences, Urugo WOC dining",
+    url: window.location.href,
+    type: "website"
+  });
 
   const fetchDinings = async (page = 1) => {
     if (page > totalPages) return;
@@ -74,6 +84,28 @@ function Dining() {
 
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  // Add Dining structured data
+  useEffect(() => {
+    if (Dining.length > 0) {
+      generateStructuredData('Organization', {
+        name: 'Urugo WOC Dining',
+        description: 'Authentic African and Kinyarwanda dining experiences',
+        url: window.location.href,
+        servesCuisine: ['African', 'Kinyarwanda', 'Rwandan'],
+        hasMenu: Dining.map(dining => ({
+          '@type': 'MenuItem',
+          name: dining.title,
+          description: dining.short_desc,
+          image: dining.image,
+          menuAddOn: {
+            '@type': 'MenuSection',
+            name: dining.category
+          }
+        }))
+      });
+    }
+  }, [Dining]);
 
   return (
     <App>
