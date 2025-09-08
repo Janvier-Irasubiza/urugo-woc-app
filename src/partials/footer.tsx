@@ -121,9 +121,13 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="border-t border-gray-800 mt-12 pt-8 text-center">
+        <div className="border-t border-gray-800 mt-12 py-8 text-center flex flex-col md:flex-row justify-center md:justify-between gap-2">
           <p className="text-gray-400">
-            © 2024 Urugo Women's Opportunity Center. All rights reserved.
+            © {new Date().getFullYear()} Urugo Women's Opportunity Center. All
+            rights reserved.
+          </p>
+          <p className="text-gray-400">
+            Powered by <span className="font-semibold">BitLocks</span>
           </p>
         </div>
       </div>

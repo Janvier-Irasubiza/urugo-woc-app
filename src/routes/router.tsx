@@ -12,6 +12,7 @@ import Dashboard from "../pages/dashboard/home";
 import Settings from "../pages/dashboard/settings";
 import ProtectedRoute from "../configs/protect-route";
 import MyCart from "../pages/dashboard/my-cart";
+import NotFound from "../pages/not-found";
 
 function Router() {
   return (
@@ -53,9 +54,5 @@ function DashboardLayout() {
   );
 }
 
-// 404 component
-function NotFound() {
-  return <div>404 - Page Not Found</div>;
-}
 
 export default Router;
