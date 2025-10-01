@@ -42,7 +42,7 @@ export default function EventCarousel({ events }: EventCarouselProps) {
 
   return (
     <div className="relative w-full">
-      <Link to={`/events/${currentEvent.slug}`}>
+      <Link to={`/atl/${currentEvent.slug}`}>
         <div className="relative w-full md:h-[352px] rounded-lg overflow-hidden bg-gray-200 flex items-center justify-center">
           <img
             src={currentEvent.image}

@@ -31,33 +31,36 @@ function Events() {
     type: "website",
   });
 
-  const fetchEvents = useCallback(async (page = 1) => {
-    if (page > totalPages) return;
-    try {
-      // Fetch data from API using axios
-      const response = await axios.get(
-        `${API_ENDPOINTS.BLOG_POSTS}/?type=event&page=${page}`
-      );
-      setEvents((prevEvents) => {
-        const newEvents = response.data.results;
-        const uniqueEvents = [...prevEvents, ...newEvents].reduce(
-          (acc, event) => {
-            if (!acc.some((item: Post) => item.title === event.title)) {
-              acc.push(event);
-            }
-            return acc;
-          },
-          [] as Post[]
+  const fetchEvents = useCallback(
+    async (page = 1) => {
+      if (page > totalPages) return;
+      try {
+        // Fetch data from API using axios
+        const response = await axios.get(
+          `${API_ENDPOINTS.BLOG_POSTS}/?type=event&page=${page}`
         );
+        setEvents((prevEvents) => {
+          const newEvents = response.data.results;
+          const uniqueEvents = [...prevEvents, ...newEvents].reduce(
+            (acc, event) => {
+              if (!acc.some((item: Post) => item.title === event.title)) {
+                acc.push(event);
+              }
+              return acc;
+            },
+            [] as Post[]
+          );
 
-        return uniqueEvents;
-      });
+          return uniqueEvents;
+        });
 
-      setTotalPages(response.data.total_pages);
-    } catch (error) {
-      console.error(error);
-    }
-  }, [totalPages]);
+        setTotalPages(response.data.total_pages);
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    [totalPages]
+  );
 
   useEffect(() => {
     fetchEvents(1);
