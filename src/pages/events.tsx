@@ -1,9 +1,10 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import App from "../layouts/app";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { API_ENDPOINTS } from "../configs/configs";
 import { useSEO, generateStructuredData } from "../utils/seo";
+import EventCarousel from "../components/EventCarousel";
 
 interface Post {
   title: string;
@@ -13,7 +14,6 @@ interface Post {
   status: string;
   slug: string;
 }
-[];
 
 function Events() {
   const [events, setEvents] = useState<Post[]>([]);
@@ -31,7 +31,7 @@ function Events() {
     type: "website",
   });
 
-  const fetchEvents = async (page = 1) => {
+  const fetchEvents = useCallback(async (page = 1) => {
     if (page > totalPages) return;
     try {
       // Fetch data from API using axios
@@ -57,11 +57,17 @@ function Events() {
     } catch (error) {
       console.error(error);
     }
-  };
+  }, [totalPages]);
 
   useEffect(() => {
-    fetchEvents(currentPage);
-  }, []);
+    fetchEvents(1);
+  }, [fetchEvents]);
+
+  useEffect(() => {
+    if (currentPage > 1) {
+      fetchEvents(currentPage);
+    }
+  }, [currentPage, fetchEvents]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -116,16 +122,7 @@ function Events() {
             <h1 className="mb-4 text-3xl font-bold text-primary">
               Happening Now
             </h1>
-            {happeningNow.map((event, index) => (
-              <Link to={`/events/${event.slug}`}>
-                <div
-                  key={index}
-                  className="border w-full md:h-[352px] rounded-lg overflow-hidden bg-gray-200 flex items-center justify-center"
-                >
-                  <img src={event.image} alt={event.title} />
-                </div>
-              </Link>
-            ))}
+            <EventCarousel events={happeningNow} />
           </section>
         )}
 
