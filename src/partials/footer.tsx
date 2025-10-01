@@ -7,10 +7,33 @@ import {
   FaInstagram,
   FaYoutube,
   FaLinkedinIn,
+  FaTelegram,
 } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 import Logo from "../assets/urugo.svg";
+
+// Social media icon mapping
+const getSocialIcon = (platformName: string): React.ElementType => {
+  switch (platformName.toLowerCase()) {
+    case "facebook":
+      return FaFacebookF;
+    case "twitter":
+      return FaXTwitter;
+    case "instagram":
+      return FaInstagram;
+    case "linkedin":
+      return FaLinkedinIn;
+    case "youtube":
+      return FaYoutube;
+    case "whatsapp":
+      return FaWhatsapp;
+    case "telegram":
+      return FaTelegram;
+    default:
+      return FaFacebookF; // Default fallback
+  }
+};
 
 interface ContactProps {
   phone_number: string;
@@ -18,8 +41,18 @@ interface ContactProps {
   address: string;
 }
 
+interface SocialProps {
+  id: number;
+  name: string;
+  name_display: string;
+  link: string;
+  created_at: string;
+  updated_at: string;
+}
+
 const Footer = () => {
   const [contact, setContact] = useState<ContactProps | null>(null);
+  const [socials, setSocials] = useState<SocialProps[]>([]);
 
   const fetchContact = async () => {
     try {
@@ -32,8 +65,20 @@ const Footer = () => {
     }
   };
 
+  const fetchSocials = async () => {
+    try {
+      const response = await axios.get(`${ABT_ENDPOINTS.SOCIAL_MEDIA}/?page=1`);
+      if (response.data.results) {
+        setSocials(response.data.results);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   useEffect(() => {
     fetchContact();
+    fetchSocials();
   }, []);
 
   return (
@@ -51,12 +96,17 @@ const Footer = () => {
             </p>
             <div className="flex space-x-4">
               <div className="flex space-x-4 mt-4 justify-center">
-                <SocialIcon Icon={FaFacebookF} aria-label="Facebook" />
-                <SocialIcon Icon={FaWhatsapp} aria-label="WhatsApp" />
-                <SocialIcon Icon={FaInstagram} aria-label="Instagram" />
-                <SocialIcon Icon={FaYoutube} aria-label="YouTube" />
-                <SocialIcon Icon={FaXTwitter} aria-label="Twitter" />
-                <SocialIcon Icon={FaLinkedinIn} aria-label="LinkedIn" />
+                {socials.map((social) => {
+                  const IconComponent = getSocialIcon(social.name);
+                  return (
+                    <SocialIcon
+                      key={social.id}
+                      Icon={IconComponent}
+                      link={social.link}
+                      ariaLabel={social.name_display}
+                    />
+                  );
+                })}
               </div>
             </div>
           </div>
@@ -137,16 +187,20 @@ const Footer = () => {
 
 type SocialIconProps = {
   Icon: React.ElementType;
+  link?: string;
   ariaLabel?: string;
 };
 
-const SocialIcon = ({ Icon, ariaLabel }: SocialIconProps) => (
-  <div
-    className="p-2 btn-primary rounded-full cursor-pointer transition"
+const SocialIcon = ({ Icon, link, ariaLabel }: SocialIconProps) => (
+  <a
+    href={link}
+    target="_blank"
+    rel="noopener noreferrer"
+    className="p-2 btn-primary rounded-full cursor-pointer transition hover:opacity-80"
     aria-label={ariaLabel}
   >
     <Icon className="text-white h-4 w-4" />
-  </div>
+  </a>
 );
 
 export default Footer;

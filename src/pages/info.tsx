@@ -21,7 +21,7 @@ function DiningDetails() {
 
   const fetchDiningDetails = async () => {
     try {
-      const response = await axios.get(`${API_ENDPOINTS.LISTINGS}/${slug}/`);
+      const response = await axios.get(`${API_ENDPOINTS.DINING}/${slug}/`);
       console.log(response.data);
       setDiningDetails(response.data);
     } catch (error) {

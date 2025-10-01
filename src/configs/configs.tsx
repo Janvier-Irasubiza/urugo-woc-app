@@ -22,10 +22,11 @@ export const ABT_ENDPOINTS = {
   GALLERY: `${ABT_BASE_URL}/gallery`,
   VIDEOS: `${ABT_BASE_URL}/videos`,
   TESTIMONIALS: `${ABT_BASE_URL}/testimonials`,
+  SOCIAL_MEDIA: `${ABT_BASE_URL}/social-media`,
 };
 
 export function getCsrfToken() {
-  const cookies = document.cookie.split(';');
+  const cookies = document.cookie.split(";");
   for (let i = 0; i < cookies.length; i++) {
     const cookie = cookies[i].trim();
     if (cookie.startsWith("csrftoken=")) {

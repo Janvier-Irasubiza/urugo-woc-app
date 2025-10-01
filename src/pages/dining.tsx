@@ -22,19 +22,19 @@ function Dining() {
   // SEO Configuration
   useSEO({
     title: "Dining Experiences - African & Kinyarwanda Cuisine | Urugo WOC",
-    description: "Discover authentic African and Kinyarwanda dining experiences at Urugo WOC. Experience traditional Rwandan cuisine, African dishes, and cultural dining traditions.",
-    keywords: "Rwandan cuisine, African food, Kinyarwanda dishes, traditional dining Rwanda, cultural food experiences, Urugo WOC dining",
+    description:
+      "Discover authentic African and Kinyarwanda dining experiences at Urugo WOC. Experience traditional Rwandan cuisine, African dishes, and cultural dining traditions.",
+    keywords:
+      "Rwandan cuisine, African food, Kinyarwanda dishes, traditional dining Rwanda, cultural food experiences, Urugo WOC dining",
     url: window.location.href,
-    type: "website"
+    type: "website",
   });
 
   const fetchDinings = async (page = 1) => {
     if (page > totalPages) return;
     try {
       // Fetch data from API using axios
-      const response = await axios.get(
-        `${API_ENDPOINTS.DINING}/?page=${page}`
-      );
+      const response = await axios.get(`${API_ENDPOINTS.DINING}/?page=${page}`);
       setDining((prevDinings) => {
         const newDinings = response.data.results;
         const uniqueDinings = [...prevDinings, ...newDinings].reduce(
@@ -88,21 +88,21 @@ function Dining() {
   // Add Dining structured data
   useEffect(() => {
     if (Dining.length > 0) {
-      generateStructuredData('Organization', {
-        name: 'Urugo WOC Dining',
-        description: 'Authentic African and Kinyarwanda dining experiences',
+      generateStructuredData("Organization", {
+        name: "Urugo WOC Dining",
+        description: "Authentic African and Kinyarwanda dining experiences",
         url: window.location.href,
-        servesCuisine: ['African', 'Kinyarwanda', 'Rwandan'],
-        hasMenu: Dining.map(dining => ({
-          '@type': 'MenuItem',
+        servesCuisine: ["African", "Kinyarwanda", "Rwandan"],
+        hasMenu: Dining.map((dining) => ({
+          "@type": "MenuItem",
           name: dining.title,
           description: dining.short_desc,
           image: dining.image,
           menuAddOn: {
-            '@type': 'MenuSection',
-            name: dining.category
-          }
-        }))
+            "@type": "MenuSection",
+            name: dining.category,
+          },
+        })),
       });
     }
   }, [Dining]);
@@ -168,12 +168,12 @@ function Dining() {
                       {dining.title}
                     </h3>
                     <p className="text-gray-600 mb-6">{dining.short_desc}</p>
-                    <a
-                      href="#"
+                    <Link
+                      to={`/dng/${dining.slug}`}
                       className="text-primary font-medium hover:underline"
                     >
                       Read More
-                    </a>
+                    </Link>
                   </div>
                 </div>
               ))}
@@ -202,12 +202,12 @@ function Dining() {
                       {dining.title}
                     </h3>
                     <p className="text-gray-600 mb-6">{dining.short_desc}</p>
-                    <a
-                      href="#"
+                    <Link
+                      to={`/dng/${dining.slug}`}
                       className="text-primary font-medium hover:underline"
                     >
                       Read More
-                    </a>
+                    </Link>
                   </div>
                 </div>
               ))}
