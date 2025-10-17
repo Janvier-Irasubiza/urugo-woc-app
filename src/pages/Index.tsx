@@ -47,9 +47,9 @@ function Index() {
   useSEO({
     title: "Urugo WOC - Empowering Women and Building Communities in Rwanda",
     description:
-      "Join Urugo WOC in transforming lives through women empowerment, cultural experiences, and community development. Discover our programs, events, dining experiences, and marketplace.",
+      "Join Urugo WOC in transforming lives through women economic support, cultural experiences, and community development. Discover our programs, events, dining experiences, and marketplace.",
     keywords:
-      "women empowerment Rwanda, community development, cultural experiences, dining Rwanda, marketplace, events, Urugo WOC, women's organization",
+      "women economic support Rwanda, community development, cultural experiences, dining Rwanda, marketplace, events, Urugo WOC, women's organization",
     url: window.location.href,
     type: "website",
   });

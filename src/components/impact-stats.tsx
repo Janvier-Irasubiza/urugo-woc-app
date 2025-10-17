@@ -1,38 +1,6 @@
-import {
-  faGraduationCap,
-  faHeart,
-  faLeaf,
-  faUsers,
-} from "@fortawesome/free-solid-svg-icons";
 import { PALETTE } from "../configs/app";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
-const impactStats = [
-  {
-    icon: faUsers,
-    number: "500+",
-    label: "Women Empowered",
-    color: "text-primary",
-  },
-  {
-    icon: faGraduationCap,
-    number: "200+",
-    label: "Training Programs",
-    color: "text-primary",
-  },
-  {
-    icon: faHeart,
-    number: "1000+",
-    label: "Lives Impacted",
-    color: "text-primary",
-  },
-  {
-    icon: faLeaf,
-    number: "50+",
-    label: "Sustainable Projects",
-    color: "text-primary",
-  },
-];
+import { impactStats } from "./data";
 
 function ImpactStats() {
   return (

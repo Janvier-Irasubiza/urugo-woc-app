@@ -1,4 +1,4 @@
-import Give from "../assets/give1.jpg";
+import empowering from "../assets/urugo-photo.jpeg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faGraduationCap,
@@ -56,7 +56,7 @@ function Featured() {
       <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
         {activeModalComp === "auth" ? <Auth /> : <Donation />}
       </Modal>
-      
+
       {/* Featured Impact Section */}
       <section
         id="impact"
@@ -72,8 +72,8 @@ function Featured() {
             <div className="relative">
               <div className="absolute -inset-4 bg-gradient-to-r from-emerald-500 to-teal-500 rounded-3xl opacity-20 blur-xl"></div>
               <img
-                src={Give}
-                alt="Women Empowerment"
+                src={empowering}
+                alt="Women economic support"
                 className="relative rounded-3xl shadow-2xl w-full h-[500px] object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent rounded-3xl"></div>

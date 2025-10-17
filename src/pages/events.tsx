@@ -24,9 +24,9 @@ function Events() {
   useSEO({
     title: "Events - Upcoming & Happening Now | Urugo WOC",
     description:
-      "Join Urugo WOC events and activities. Discover upcoming women empowerment events, community programs, and cultural activities happening in Rwanda.",
+      "Join Urugo WOC events and activities. Discover upcoming women economic support events, community programs, and cultural activities happening in Rwanda.",
     keywords:
-      "events Rwanda, women empowerment events, community activities, Urugo WOC events, upcoming events, cultural events Rwanda",
+      "events Rwanda, women economic support events, community activities, Urugo WOC events, upcoming events, cultural events Rwanda",
     url: window.location.href,
     type: "website",
   });
@@ -91,7 +91,7 @@ function Events() {
     if (events.length > 0) {
       generateStructuredData("Organization", {
         name: "Urugo WOC Events",
-        description: "Women empowerment and community development events",
+        description: "Women economic support and community development events",
         url: window.location.href,
         event: events.map((event) => ({
           "@type": "Event",

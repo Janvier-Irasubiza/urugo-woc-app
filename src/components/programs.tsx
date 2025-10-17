@@ -1,99 +1,76 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { PALETTE } from "../configs/app";
-import { useEffect, useState } from "react";
 import {
-  faHandHoldingHeart,
-  faHome,
-  faUsers,
+  faGraduationCap,
+  faLeaf,
+  faRug,
+  faBasketShopping,
+  faShirt,
 } from "@fortawesome/free-solid-svg-icons";
 
 const infoCards = [
   {
-    icon: faUsers,
-    title: "Women's Opportunity Center",
+    icon: faGraduationCap, // Perfect for TVET/Education programs
+    title: "TVET Program",
     description:
-      "A safe and welcoming space in Kayonza District where women learn, develop skills, and build sustainable livelihoods. We provide dedicated facilities for education, skill development, and community building.",
-    highlight: "500+ Women Empowered",
+      "Offers hands-on training in coffee service, front office, housekeeping, and dairy production, equipping women with practical, industry-ready skills to build meaningful careers and contribute to thriving communities.",
   },
   {
-    icon: faHome,
-    title: "Urugo Eco-Lodge",
+    icon: faLeaf, // Represents leather (natural material) and craftsmanship
+    title: "Leather Work",
     description:
-      "Experience meaningful hospitality in rural Rwanda. Our sustainable lodge offers comfortable accommodations while supporting community development and women's empowerment initiatives.",
-    highlight: "Sustainable Tourism",
+      "The newest addition at the center, this program equips women with the skills to craft high-quality leather goods that combine style and durability, opening pathways for sustainable livelihoods.",
   },
   {
-    icon: faHandHoldingHeart,
-    title: "Men's Engagement Program",
+    icon: faRug, // Perfect representation for carpet weaving
+    title: "Carpet Weaving",
     description:
-      "Creating allies for gender equality through education and awareness. We engage men to support women's rights and create an inclusive environment for everyone to thrive.",
-    highlight: "Community Partnership",
+      "Focused on advanced handweaving techniques, this program blends traditional craftsmanship with contemporary design, providing artisans with a stable source of income.",
+  },
+  {
+    icon: faBasketShopping, // Represents baskets and handmade crafts
+    title: "Handcrafts",
+    description:
+      "Women carry on the legacy of Rwandan basket weaving and Imigongo art, transforming cultural heritage into beautiful interior design pieces.",
+  },
+
+  {
+    icon: faShirt, // Perfect for tailoring and clothing creation
+    title: "Tailoring",
+    description:
+      "Trains women to create clothing, accessories, and custom items, supporting them to achieve financial independence through creative self-reliance.",
   },
 ];
 
 function Programs() {
-  const [isVisible, setIsVisible] = useState({
-    programs: false,
-  });
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setIsVisible({ programs: true });
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
-
-    const programsSection = document.getElementById("programs");
-    if (programsSection) {
-      observer.observe(programsSection);
-    }
-
-    return () => {
-      if (programsSection) {
-        observer.unobserve(programsSection);
-      }
-    };
-  }, []);
-
   return (
-    <>
-      {/* Programs Section */}
-      <section
-        id="programs"
-        data-animate
-        className={`py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto transform transition-all duration-1000 ${
-          isVisible.programs
-            ? "translate-y-0 opacity-100"
-            : "translate-y-10 opacity-0"
-        }`}
-      >
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-primary mb-4">
-            Our Programs
-          </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Comprehensive programs designed to empower women and transform
-            communities
-          </p>
-        </div>
+    <section
+      id="programs"
+      className="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto"
+    >
+      <div className="text-center mb-16">
+        <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-primary mb-4">
+          Our Programs
+        </h2>
+        <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+          Comprehensive programs designed to empower women and transform
+          communities
+        </p>
+      </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {infoCards.map((card, index) => (
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {infoCards.map((card, index) => (
+          <div key={card.title} className="w-full">
             <div
-              key={index}
-              className="group rounded-3xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 border"
+              className="group rounded-3xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 border h-full"
               style={{
                 background: [
                   PALETTE.dutchWhite,
                   PALETTE.ashGray,
                   PALETTE.dun,
                   PALETTE.tiffanyBlue,
-                ][index % 4],
+                  PALETTE.dutchWhite,
+                ][index % 5],
                 color: PALETTE.brunswickGreen,
                 borderColor: "#eee",
               }}
@@ -113,10 +90,10 @@ function Programs() {
                 </p>
               </div>
             </div>
-          ))}
-        </div>
-      </section>
-    </>
+          </div>
+        ))}
+      </div>
+    </section>
   );
 }
 

@@ -26,7 +26,7 @@ const defaultSEO: Required<SEOProps> = {
   description:
     "Urugo WOC is dedicated to empowering women and building stronger communities across Rwanda through innovative programs, cultural experiences, and sustainable development initiatives.",
   keywords:
-    "women empowerment, Rwanda, community development, cultural experiences, dining, marketplace, events, Urugo WOC",
+    "women economic support, Rwanda, community development, cultural experiences, dining, marketplace, events, Urugo WOC",
   image: "/src/assets/urugo.svg",
   url: "",
   type: "website",

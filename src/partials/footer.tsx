@@ -90,9 +90,9 @@ const Footer = () => {
               <img src={Logo} alt="UrugoWOC" className="h-20 w-20" />
             </div>
             <p className="text-gray-300 mb-6 text-lg leading-relaxed max-w-md">
-              Empowering women in Rwanda through education, skills training, and
-              community support. Building sustainable futures, one woman at a
-              time.
+              Advancing women in Rwanda through education, skills development,
+              and community support — building sustainable futures, one woman at
+              a time.
             </p>
             <div className="flex space-x-4">
               <div className="flex space-x-4 mt-4 justify-center">
