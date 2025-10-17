@@ -20,7 +20,7 @@ export const impactStats = [
   },
   {
     icon: faHeart,
-    number: "01",
+    number: "10",
     label: "Number of Cooperatives",
     color: "text-primary",
   },
