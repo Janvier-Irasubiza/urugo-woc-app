@@ -8,8 +8,10 @@ import {
   FaYoutube,
   FaLinkedinIn,
   FaTelegram,
+  FaSnapchat,
+  FaReddit,
 } from "react-icons/fa";
-import { FaXTwitter } from "react-icons/fa6";
+import { FaTiktok, FaXTwitter } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 import Logo from "../assets/urugo.svg";
 
@@ -30,6 +32,12 @@ const getSocialIcon = (platformName: string): React.ElementType => {
       return FaWhatsapp;
     case "telegram":
       return FaTelegram;
+    case "tiktok":
+      return FaTiktok;
+    case "snapchat":
+      return FaSnapchat;
+    case "reddit":
+      return FaReddit;
     default:
       return FaFacebookF; // Default fallback
   }
