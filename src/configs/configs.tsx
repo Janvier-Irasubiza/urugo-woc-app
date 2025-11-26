@@ -9,9 +9,14 @@ export const API_ENDPOINTS = {
   ABOUT: `${API_BASE_URL}/about`,
   CONTACT: `${API_BASE_URL}/contact`,
   TEAM: `${API_BASE_URL}/team`,
+
+  // Authentication Endpoints
   REGISTER: `${API_BASE_URL}/register`,
   LOGIN: `${API_BASE_URL}/login`,
   LOGOUT: `${API_BASE_URL}/logout`,
+
+  // Document Endpoint
+  DOCUMENTS: `${API_BASE_URL}/documents`,
 };
 
 export const ABT_ENDPOINTS = {

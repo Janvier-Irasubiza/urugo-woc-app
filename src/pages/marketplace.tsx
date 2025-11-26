@@ -15,20 +15,32 @@ interface Marketplace {
   short_desc: string;
 }
 
+interface Document {
+  id?: number | string;
+  file_name?: string;
+  file_type?: string;
+  document_type?: string;
+  description?: string;
+  file?: string;
+}
+
 function Marketplace() {
   const [searchQuery, setSearchQuery] = useState("");
   const [category, setCategory] = useState("Product");
   const [products, setProducts] = useState<Marketplace[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+  const [documents, setDocuments] = useState<Document[]>([]);
 
   // SEO Configuration
   useSEO({
     title: "Marketplace - Products & Accommodations | Urugo WOC",
-    description: "Shop authentic Rwandan products and find accommodations at Urugo WOC marketplace. Support women entrepreneurs and discover unique local items.",
-    keywords: "Rwandan products, marketplace, accommodations Rwanda, women entrepreneurs, local products, Urugo WOC shop",
+    description:
+      "Shop authentic Rwandan products and find accommodations at Urugo WOC marketplace. Support women entrepreneurs and discover unique local items.",
+    keywords:
+      "Rwandan products, marketplace, accommodations Rwanda, women entrepreneurs, local products, Urugo WOC shop",
     url: window.location.href,
-    type: "website"
+    type: "website",
   });
 
   const fetchProducts = async (page = 1, reset = false) => {
@@ -48,6 +60,17 @@ function Marketplace() {
     }
   };
 
+  const fetchDocs = async () => {
+    try {
+      const response = await axios.get(
+        `${API_ENDPOINTS.DOCUMENTS}/?visibility=public&document_type=marketplace`
+      );
+      setDocuments(response.data.results);
+    } catch (error) {
+      console.error("Error fetching documents:", error);
+    }
+  };
+
   const handleSearch = () => {
     setCurrentPage(1);
     fetchProducts(1, true);
@@ -56,6 +79,7 @@ function Marketplace() {
   // Handle initial load and category changes
   useEffect(() => {
     handleSearch();
+    fetchDocs();
   }, [category]);
 
   // Handle infinite scroll
@@ -83,28 +107,29 @@ function Marketplace() {
   // Add Marketplace structured data
   useEffect(() => {
     if (products.length > 0) {
-      generateStructuredData('Organization', {
-        name: 'Urugo WOC Marketplace',
-        description: 'Authentic Rwandan products and accommodations marketplace',
+      generateStructuredData("Organization", {
+        name: "Urugo WOC Marketplace",
+        description:
+          "Authentic Rwandan products and accommodations marketplace",
         url: window.location.href,
         hasOfferCatalog: {
-          '@type': 'OfferCatalog',
-          name: 'Urugo WOC Products',
+          "@type": "OfferCatalog",
+          name: "Urugo WOC Products",
           itemListElement: products.map((product, index) => ({
-            '@type': 'Offer',
+            "@type": "Offer",
             position: index + 1,
             itemOffered: {
-              '@type': 'Product',
+              "@type": "Product",
               name: product.title,
               description: product.short_desc,
               image: product.image,
-              category: product.category
+              category: product.category,
             },
             price: product.price,
-            priceCurrency: 'RWF',
-            availability: 'https://schema.org/InStock'
-          }))
-        }
+            priceCurrency: "RWF",
+            availability: "https://schema.org/InStock",
+          })),
+        },
       });
     }
   }, [products]);
@@ -179,6 +204,129 @@ function Marketplace() {
             ))}
           </div>
         </section>
+        {/* Marketplace Documents Section */}
+        {documents.length > 0 && (
+          <section className="py-10">
+            <h2 className="text-2xl font-bold mb-4">Documents</h2>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {documents.map((doc, idx) => (
+                <div
+                  key={doc.id || idx}
+                  className="bg-thrd-level rounded-xl shadow-lg p-6 flex items-center justify-between space-x-6 border border-primary hover:shadow-xl transition duration-200"
+                >
+                  <div className="flex items-center space-x-4">
+                    {/* Document Icon */}
+                    <svg
+                      className="h-10 w-10 text-primary flex-shrink-0"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M7 7V3a1 1 0 011-1h8a1 1 0 011 1v18a1 1 0 01-1 1H8a1 1 0 01-1-1v-4"
+                      />
+                      <rect x="3" y="7" width="8" height="10" rx="2" />
+                    </svg>
+                    <div>
+                      <span className="font-semibold text-lg text-primary-dark">
+                        {doc.file_name || `Document ${idx + 1}`}
+                      </span>
+                      {/* Actual file type display from file_type field */}
+                      <span className="ml-2 px-2 py-1 rounded bg-primary text-white text-xs font-semibold align-middle">
+                        {doc.file_type && doc.file_type.toUpperCase()}
+                      </span>
+                      <p className="text-sm text-gray-600 mt-1 line-clamp-1">
+                        {doc.description}
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-2">
+                    {/* View Button for supported types */}
+                    {(() => {
+                      const ext = doc.file_type
+                        ? doc.file_type.toLowerCase()
+                        : "";
+                      const viewable = [
+                        "pdf",
+                        "jpg",
+                        "jpeg",
+                        "png",
+                        "gif",
+                        "webp",
+                      ].includes(ext);
+                      if (viewable) {
+                        return (
+                          <a
+                            href={doc.file}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="btn-primary px-5 py-2 rounded-lg shadow text-sm font-medium transition duration-150 flex items-center justify-center"
+                          >
+                            <svg
+                              className="h-4 w-4 mr-1"
+                              fill="none"
+                              stroke="currentColor"
+                              strokeWidth="2"
+                              viewBox="0 0 24 24"
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                              />
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                d="M2.458 12C3.732 7.943 7.523 5 12 5c4.477 0 8.268 2.943 9.542 7-1.274 4.057-5.065 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+                              />
+                            </svg>
+                            View
+                          </a>
+                        );
+                      }
+                      return null;
+                    })()}
+                    {/* Download Button always shown */}
+                    <a
+                      href={doc.file}
+                      download
+                      className="btn-secondary px-5 py-2 rounded-lg shadow text-white border border-primary hover:bg-thrd-level transition duration-150 flex items-center justify-center"
+                    >
+                      <svg
+                        className="h-4 w-4 mr-1"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M4 16v2a2 2 0 002 2h8a2 2 0 002-2v-2"
+                        />
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M7 10l5 5 5-5"
+                        />
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M12 15V3"
+                        />
+                      </svg>
+                      Download
+                    </a>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
       </div>
     </App>
   );
